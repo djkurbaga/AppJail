@@ -1,0 +1,34 @@
+# Her push'ta bulutta debug APK derler; çıktı Actions sekmesinden indirilir
+name: Build APK
+
+on:
+  push:
+  workflow_dispatch:   # Actions sekmesinden elle de tetiklenebilir
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Gradle ve Android eklentisi için JDK 17 gerekli
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Android SDK'yı runner'a kurar
+      - uses: android-actions/setup-android@v3
+
+      # Depoda gradlew yoksa üretir
+      - name: Wrapper oluştur
+        run: gradle wrapper --gradle-version 8.7
+
+      - name: Derle
+        run: ./gradlew assembleDebug --no-daemon
+
+      # APK'yı indirilebilir çıktı olarak yükler
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
