@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ana ekran teması -->
+    <style name="Theme.AppJail" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Engel ekranı teması: başlık çubuğu yok, tam ekran ve opak -->
+    <style name="Theme.AppJail.Block" parent="android:Theme.Material.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">#0D0D0D</item>
+    </style>
+</resources>
